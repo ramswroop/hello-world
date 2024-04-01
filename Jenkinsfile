@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven_3.9.6_kavita' 
+    }
+    environment {
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+    }
+    stages {
+        stage ('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker Build') {
+            steps {
+                script {
+                    docker.build("rama1/hello-world:${TAG}")
+                }
+            }
+        }
+	    stage('Pushing Docker Image to Dockerhub') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_credential') {
+                        docker.image("rama1/hello-world:${TAG}").push()
+                        docker.image("rama1/hello-world:${TAG}").push("latest")
+                    }
+                }
+            }
+        }
+        stage('Deploy'){
+            steps {
+                sh "docker stop hello-world | true"
+                sh "docker rm hello-world | true"
+                sh "docker run --name hello-world -d -p 9004:8080 rama1/hello-world:${TAG}"
+            }
+        }
+    }
+}
