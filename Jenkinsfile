@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "docker stop hello-world | true"
                 sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9004:8080 rama1/hello-world:${TAG}"
+                sh "docker run --name hello-world -d -p 8080:8080 rama1/hello-world:${TAG}"
             }
         }
     }
