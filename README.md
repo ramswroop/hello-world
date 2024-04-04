@@ -54,7 +54,7 @@ mvn jacoco:report
 
 Code coverage report is located in target/site/jacoco/index.html
 
-## Github Actions
+## yes Github Actions
 Topic|Branch name| 
 |----|-----|
 |First pipeline|first-pipeline|
