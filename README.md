@@ -1,6 +1,6 @@
 # Maven web application project
 
-### Java used in the file version: 11
+### once again Java used in the file version: 11
 
 ### Clean fresh application code is available in hell-world-maven branch and hello-world-maven tag
 To clone the hello-world-maven branch
