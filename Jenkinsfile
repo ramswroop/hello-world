@@ -14,12 +14,16 @@ pipeline {
             }
         }
          stage('SonarQube Analysis') {
+		             environment {
+                // Define tools for this stage
+                PATH = "${tool 'JDK8'}/bin:${env.PATH}"
+            }
             steps {
                 // Use withSonarQubeEnv block to manage SonarQube environment
                 withSonarQubeEnv('ramasonar') {
                     // Execute SonarQube analysis
                     sh '''
-                      mvn clean compile sonar:sonar
+                      mvn  sonar:sonar
                     '''
                 }
             }
