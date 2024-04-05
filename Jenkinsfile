@@ -13,6 +13,17 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+         stage('SonarQube Analysis') {
+            steps {
+                // Use withSonarQubeEnv block to manage SonarQube environment
+                withSonarQubeEnv('ramasonar') {
+                    // Execute SonarQube analysis
+                    sh '''
+                        mvn sonar:sonar
+                    '''
+                }
+            }
+        }
         stage('Docker Build') {
             steps {
                 script {
