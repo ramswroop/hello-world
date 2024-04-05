@@ -19,7 +19,7 @@ pipeline {
                 withSonarQubeEnv('ramasonar') {
                     // Execute SonarQube analysis
                     sh '''
-                        mvn sonar:sonar
+                      mvn clean compile sonar:sonar
                     '''
                 }
             }
